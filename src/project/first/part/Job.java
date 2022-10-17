@@ -8,13 +8,15 @@ public class Job {
 	private int arrivalTime; 
 	private int firstArrivalTime;
 	private int duration;
+	private int PID;
 	
 	public Job(){}
 
-	public Job(int arrivalTime, int duration) {		
+	public Job(int arrivalTime, int duration, int PID) {		
 		this.arrivalTime = arrivalTime;
 		this.duration = duration;
 		this.firstArrivalTime = arrivalTime;
+		this.PID = PID;
 	}
 
 	public int getArrivalTime() {
@@ -40,9 +42,17 @@ public class Job {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
+	
+	public int getPID() {
+		return PID;
+	}
+
+	public void setPID(int pid) {
+		PID = pid;
+	}
 
 	@Override
 	public String toString() {
-		return "Job [arrivalTime=" + arrivalTime + ", firstArrivalTime=" + firstArrivalTime + ", duration=" + duration + "]";
+		return "Job [arrivalTime=" + arrivalTime + ", firstArrivalTime=" + firstArrivalTime + ", duration=" + duration + ", PID="+ PID + "]";
 	}	
 }

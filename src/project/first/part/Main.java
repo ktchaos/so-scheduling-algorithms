@@ -7,6 +7,8 @@ package project.first.part;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -15,8 +17,9 @@ public class Main {
 	public static void main (String[] args) {
 		try {
 			// Input file
-			String filePath = "/Users/catarinaserrano/desktop/ufpb/so/first-part/src/jobs.txt";
-	        BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+	        Path path = Paths.get("src/jobs.txt");
+	        String filePath = path.toAbsolutePath().toString();
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
 	        
 	        // LinkedList para os jobs
 	        LinkedList<Job> jobs = new LinkedList<Job>();	
@@ -24,11 +27,13 @@ public class Main {
 	        String line;
 	        // par em cada linha
 	        String[] pair = new String[2];
+	        int PID = 0;
 	        
 	        // Preenchendo a lista de processos
 	        while ((line = bufferedReader.readLine()) != null) {
 	        	pair = line.split(" ");
-	        	jobs.add(new Job(Integer.parseInt(pair[0]), Integer.parseInt(pair[1])));
+	        	jobs.add(new Job(Integer.parseInt(pair[0]), Integer.parseInt(pair[1]), PID));
+	        	PID++;
 	        }
 	        bufferedReader.close();
 	        
@@ -45,8 +50,10 @@ public class Main {
 	        // 1. FCFS
 	        FCFS.init(new LinkedList<Job>(jobs));
 			// 2. SJF
-	        
+	        SJF.init(new LinkedList<Job>(jobs));
 	        // 3. RR
+	        int quantum = 2;
+	        RR.init(new LinkedList<Job>(jobs), quantum);
 
 	    } catch (IOException ex) {
 	        System.err.print(ex.getMessage());
